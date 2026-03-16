@@ -1,7 +1,8 @@
-function randArrGen(arr, size)
+function randArrGen(size)
 {
-  
 
+  const arr = [];
+  
   for (let i = 0; i < size; i++)
   {
     arr[i] = i + 1;
