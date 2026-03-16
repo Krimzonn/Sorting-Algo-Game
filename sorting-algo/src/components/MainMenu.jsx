@@ -30,9 +30,29 @@ function MainMenu()
                 <h1 className="text-3xl font-bold text-fuchsia-500 mb-10">Select An Algorithm</h1>
 
                 <div className="flex flex-row gap-6 mt-10">
-                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-36 text-center text-white">
+                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white">
                         <p className="font-bold">Bubble Sort</p>
                         <p className="text-xs text-zinc-400 mt-2">Compare Neighbors</p>
+                    </div>
+
+                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white">
+                        <p className="font-bold">Selection Sort</p>
+                        <p className="text-xs text-zinc-400 mt-2">Find The Minimum</p>
+                    </div>
+
+                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white">
+                        <p className="font-bold">Insertion Sort</p>
+                        <p className="text-xs text-zinc-400 mt-2">Build Sorted Left</p>
+                    </div>
+
+                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white">
+                        <p className="font-bold">Quick Sort</p>
+                        <p className="text-xs text-zinc-400 mt-2">Pivot And Partition</p>
+                    </div>
+
+                    <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white">
+                        <p className="font-bold">Merge Sort</p>
+                        <p className="text-xs text-zinc-400 mt-2">Divide And Conquer</p>
                     </div>
                 </div>
 
