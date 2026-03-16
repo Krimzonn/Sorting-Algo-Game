@@ -9,3 +9,7 @@
 .floating {
   animation: float 3s ease-in-out infinite;
 }
+
+body {
+  background-color: #09090b;
+}

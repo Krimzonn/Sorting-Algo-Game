@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import ParticleBackground from "./ParticleBackground";
 
 function MainMenu()
 {
@@ -13,7 +14,8 @@ function MainMenu()
 
   if (screen === 'main')
   {
-    content = <div className="h-screen flex flex-col items-center justify-center bg-zinc-950">
+    content = <div className="h-screen flex flex-col items-center justify-center">
+                <ParticleBackground />
                 <h1 className="text-5xl font-bold text-fuchsia-500 mb-10">Sorting Algo</h1>
 
                 <div className="flex flex-col gap-4">
