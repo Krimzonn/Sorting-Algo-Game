@@ -7,6 +7,7 @@ function MainMenu()
   const navigate = useNavigate();
 
   const [screen, setScreen] = useState("main");
+  const [selectAlgorithm, setSelectAlgorithm] = useState(null);
 
   let content;
 
@@ -28,7 +29,9 @@ function MainMenu()
   }
   else if (screen === 'algorithm')
   {
-    content = <div className="h-screen flex flex-col items-center justify-center bg-zinc-950">
+    content = <div className="h-screen flex flex-col items-center justify-center">
+
+                <ParticleBackground />
                 <h1 className="text-3xl font-bold text-fuchsia-500 mb-10">Select An Algorithm</h1>
 
                 <div className="flex flex-row gap-6 mt-10">
@@ -63,7 +66,7 @@ function MainMenu()
                     </div>
                 </div>
 
-                <button type="button" onClick={() => setScreen('difficulty')}>GOTO difficulty</button>
+                <button className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300" onClick={() => setScreen('main')}>BACK</button>
               </div>
   }
   else if (screen === 'difficulty')
