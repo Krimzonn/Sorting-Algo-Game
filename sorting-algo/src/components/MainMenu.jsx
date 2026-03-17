@@ -37,9 +37,9 @@ function MainMenu()
                 <h1 className="text-5xl font-bold text-fuchsia-500 mb-10">Sorting Algo</h1>
 
                 <div className="flex flex-col gap-4">
-                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white font-bold px-8 py-3 rounded-xl w-48" type="button" onClick={() => setScreen('algorithm')}>PLAY</button>
-                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white font-bold px-8 py-3 rounded-xl w-48" type="button" onClick={() => navigate('/leaderboard')}>LEADERBOARD</button>
-                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white font-bold px-8 py-3 rounded-xl w-48" type="button" onClick={() => setScreen('settings')}>SETTINGS</button>
+                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55" type="button" onClick={() => setScreen('algorithm')}>PLAY</button>
+                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55" type="button" onClick={() => navigate('/leaderboard')}>LEADERBOARD</button>
+                  <button className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55" type="button" onClick={() => setScreen('settings')}>SETTINGS</button>
                 </div>
 
               </div>
@@ -49,7 +49,7 @@ function MainMenu()
     content = <div className="h-screen flex flex-col items-center justify-center">
 
                 <ParticleBackground />
-                <h1 className="text-3xl font-bold text-fuchsia-500 mb-10">Select An Algorithm</h1>
+                <h1 className="text-4xl font-bold text-fuchsia-500 mb-10">Select An Algorithm</h1>
 
                 <div className="flex flex-row gap-6 mt-10">
                     <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating" style={{ animationDelay: '0s' }}>
@@ -111,24 +111,42 @@ function MainMenu()
                     <p className="font-bold">🟢 EASY</p>
                     <button className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10" type="button" 
                         onClick={() => {
-                          navigate('/game')
-                          setSelectDifficulty('easy')}}>SELECT</button>
+                          navigate('/game', {
+                              state: { 
+                                algorithm: selectAlgorithm,
+                                difficulty: 'easy',
+                                mode: gameMode
+                                }
+                          })
+                          }}>SELECT</button>
                   </div>
 
                   <div className="bg-zinc-800 border border-yellow-400 rounded-xl p-7 w-40 text-center text-white floating glowYellowEffect">
                     <p className="font-bold">⚡MEDIUM</p>
                     <button className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10" type="button" 
                         onClick={() => {
-                          navigate('/game')
-                          setSelectDifficulty('medium')}}>SELECT</button>
+                          navigate('/game', {
+                              state: { 
+                                algorithm: selectAlgorithm,
+                                difficulty: 'medium',
+                                mode: gameMode
+                                }
+                          })
+                          }}>SELECT</button>
                   </div>
 
                   <div className="bg-zinc-800 border border-red-400 rounded-xl p-7 w-40 text-center text-white floating glowRedEffect">
                     <p className="font-bold">💀 HARD</p>
                     <button className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10" type="button" 
                         onClick={() => {
-                          navigate('/game')
-                          setSelectDifficulty('hard')}}>SELECT</button>
+                          navigate('/game', {
+                              state: { 
+                                algorithm: selectAlgorithm,
+                                difficulty: 'hard',
+                                mode: gameMode
+                                }
+                          })
+                          }}>SELECT</button>
                   </div>
                 </div>
 
