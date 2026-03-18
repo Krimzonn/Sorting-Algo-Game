@@ -1,12 +1,13 @@
 import { useLocation } from "react-router-dom";
 import TopBar from "./TopBar";
 import NumberCard from "./NumberCard";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import randArrGen from "../game-logic/arrayGenerator";
 import bubbleSort from "../game-logic/bubbleSort";
 import insertionSort from "../game-logic/insertionSort";
 import selectionSort from "../game-logic/selectionSort";
 import PlayerBoard from "./PlayerBoard";
+import moveValidator from "../game-logic/moveValidator";
 
 function Game() {
   const location = useLocation();
@@ -26,6 +27,34 @@ function Game() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
 
+  const handleSwap = useCallback(
+    (indices) => {
+      if (steps.length === 0 || !playerCards.length) return;
+
+      const isValid = moveValidator(
+        playerCards,
+        indices,
+        steps,
+        currentStepIndex,
+      );
+
+      if (isValid) {
+        const newCards = [...playerCards];
+        const [i, j] = indices;
+        let temp = newCards[i];
+        newCards[i] = newCards[j];
+        newCards[j] = temp;
+
+        setPlayerCards(newCards);
+        setCurrentStepIndex((csi) => csi + 1);
+        setSelectedIndices([]);
+      } else {
+        setSelectedIndices([]);
+      }
+    },
+    [playerCards, steps, currentStepIndex],
+  );
+
   useEffect(() => {
     if (!location.state) {
       return;
@@ -39,9 +68,9 @@ function Game() {
       selectionSort: selectionSort,
     };
 
-    const arr = randArrGen(6);
+    const arr = randArrGen(8);
     const sortFunc = algorithmMap[algorithm];
-    const generatedSteps = sortFunc([...arr], 6);
+    const generatedSteps = sortFunc([...arr], 8);
 
     setPlayerCards(arr);
     setBotCards([...arr]);
@@ -61,25 +90,31 @@ function Game() {
       }
 
       if (e.key === "ArrowUp" || e.key === "w") {
-        setSelectedIndices((sI) => {
-          if (sI.length === 2) {
-            return [cursorIndex];
+        if (selectedIndices.length === 0) {
+          setSelectedIndices([cursorIndex]);
+        } else if (selectedIndices.length === 1) {
+          if (selectedIndices[0] === cursorIndex) {
+            setSelectedIndices([]);
+          } else {
+            handleSwap([selectedIndices[0], cursorIndex]);
           }
-          if (sI.length === 0) {
-            return [cursorIndex];
-          }
-          if (sI[0] === cursorIndex) {
-            return [];
-          }
-          return [...sI, cursorIndex];
-        });
+        } else if (selectedIndices.length === 2) {
+          setSelectedIndices([cursorIndex]);
+        }
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [playerCards.length, cursorIndex, selectedIndices]);
+  }, [
+    playerCards.length,
+    cursorIndex,
+    selectedIndices,
+    steps,
+    currentStepIndex,
+    handleSwap,
+  ]);
 
   if (!location.state) {
     return (
