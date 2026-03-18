@@ -59,12 +59,27 @@ function Game() {
       if (e.key === "ArrowRight" || e.key === "d") {
         setCursorIndex((cI) => Math.min(playerCards.length - 1, cI + 1));
       }
+
+      if (e.key === "ArrowUp" || e.key === "w") {
+        setSelectedIndices((sI) => {
+          if (sI.length === 2) {
+            return [cursorIndex];
+          }
+          if (sI.length === 0) {
+            return [cursorIndex];
+          }
+          if (sI[0] === cursorIndex) {
+            return [];
+          }
+          return [...sI, cursorIndex];
+        });
+      }
     };
 
     window.addEventListener("keydown", handleKeyDown);
 
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [playerCards.length]);
+  }, [playerCards.length, cursorIndex, selectedIndices]);
 
   if (!location.state) {
     return (
@@ -93,8 +108,14 @@ function Game() {
             playerName={"You"}
             cards={playerCards}
             cursorIndex={cursorIndex}
+            selectedIndices={selectedIndices}
           />
-          <PlayerBoard playerName={"Bot"} cards={botCards} cursorIndex={-1} />
+          <PlayerBoard
+            playerName={"Bot"}
+            cards={botCards}
+            cursorIndex={-1}
+            selectedIndices={[]}
+          />
         </div>
       </div>
     </>

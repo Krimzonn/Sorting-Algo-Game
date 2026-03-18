@@ -1,6 +1,6 @@
 import NumberCard from "./NumberCard";
 
-function PlayerBoard({ playerName, cards, cursorIndex }) {
+function PlayerBoard({ playerName, cards, cursorIndex, selectedIndices }) {
   return (
     <div className="bg-zinc-950 border border-zinc-700 rounded-2xl p-6 w-full">
       <div className="flex justify-between  items-center mb-6">
@@ -9,7 +9,12 @@ function PlayerBoard({ playerName, cards, cursorIndex }) {
 
       <div className="flex flex-row gap-3 justify-center">
         {cards.map((card, i) => (
-          <NumberCard key={i} value={card} isSelected={i === cursorIndex} />
+          <NumberCard
+            key={i}
+            value={card}
+            isSelected={selectedIndices.includes(i)}
+            isCursor={i == cursorIndex}
+          />
         ))}
       </div>
     </div>
