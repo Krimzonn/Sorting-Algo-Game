@@ -6,6 +6,7 @@ import randArrGen from "../game-logic/arrayGenerator";
 import bubbleSort from "../game-logic/bubbleSort";
 import insertionSort from "../game-logic/insertionSort";
 import selectionSort from "../game-logic/selectionSort";
+import PlayerBoard from "./PlayerBoard";
 
 function Game()
 {
@@ -56,7 +57,10 @@ function Game()
 
   return(
     <>
-
+      <div className="flex flex-col gap-6 p-8 bg-zinc-950 min-h-screen">
+         <PlayerBoard playerName={"You"} cards={playerCards} />
+         <PlayerBoard playerName={"Bot"} cards={botCards} />
+      </div>
     </>
   )
 }

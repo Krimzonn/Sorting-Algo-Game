@@ -30,7 +30,7 @@ function MainMenu()
 
 
 
-  if (screen === 'main')
+  if (screen === 'main') 
   {
     content = <div className="h-screen flex flex-col items-center justify-center">
                 <ParticleBackground />
