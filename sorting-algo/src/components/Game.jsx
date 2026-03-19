@@ -27,6 +27,36 @@ function Game() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
 
+  const handleSequenceCompletion = useCallback(() => {
+    setPlayerScore((s) => s + 1);
+
+    const { algorithm } = location.state;
+    const algorithmMap = {
+      bubbleSort: bubbleSort,
+      insertionSort: insertionSort,
+      selectionSort: selectionSort,
+    };
+
+    const arr = randArrGen(8);
+    const sortFunc = algorithmMap[algorithm];
+    const rawSteps = sortFunc([...arr], arr.length);
+
+    const newSteps = rawSteps.filter((step, i) => {
+      if (i === 0) {
+        return true;
+      }
+
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+    });
+
+    setPlayerCards(arr);
+    setBotCards([...arr]);
+    setSteps(newSteps);
+    setCurrentStepIndex(0);
+    setSelectedIndices([]);
+    setCursorIndex(0);
+  }, [location.state]);
+
   const handleSwap = useCallback(
     (indices) => {
       if (steps.length === 0 || !playerCards.length) return;
@@ -45,6 +75,13 @@ function Game() {
         newCards[i] = newCards[j];
         newCards[j] = temp;
 
+        const nextStepIndex = currentStepIndex + 1;
+
+        if (nextStepIndex === steps.length) {
+          handleSequenceCompletion();
+          return;
+        }
+
         setPlayerCards(newCards);
         setCurrentStepIndex((csi) => csi + 1);
         setSelectedIndices([]);
@@ -52,7 +89,7 @@ function Game() {
         setSelectedIndices([]);
       }
     },
-    [playerCards, steps, currentStepIndex],
+    [playerCards, steps, currentStepIndex, handleSequenceCompletion],
   );
 
   useEffect(() => {
