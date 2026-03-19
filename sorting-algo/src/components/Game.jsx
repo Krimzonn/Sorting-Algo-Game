@@ -60,7 +60,8 @@ function Game() {
       return;
     }
 
-    const { algorithm } = location.state;
+    const { algorithm, time } = location.state;
+    setTimeLeft(time);
 
     const algorithmMap = {
       bubbleSort: bubbleSort,
@@ -124,6 +125,25 @@ function Game() {
     handleSwap,
   ]);
 
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      setTimeLeft((tL) => {
+        if (tL < 1) {
+          clearInterval(interval);
+          return;
+        } else {
+          return tL - 1;
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft]);
+
   if (!location.state) {
     return (
       <div className="text-white p-10">
@@ -135,7 +155,7 @@ function Game() {
     );
   }
 
-  const { algorithm, difficulty, mode } = location.state;
+  const { algorithm, difficulty, mode, time } = location.state;
 
   return (
     <>
