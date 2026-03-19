@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import TopBar from "./TopBar";
 import NumberCard from "./NumberCard";
 import { useState, useEffect, useCallback } from "react";
@@ -11,6 +11,7 @@ import moveValidator from "../game-logic/moveValidator";
 
 function Game() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const [playerCards, setPlayerCards] = useState([]);
   const [botCards, setBotCards] = useState([]);
@@ -45,7 +46,9 @@ function Game() {
       if (i === 0) {
         return true;
       }
-
+      if (i === 0) {
+        return JSON.stringify(step) !== JSON.stringify(arr);
+      }
       return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
     });
 
@@ -114,6 +117,9 @@ function Game() {
       if (i == 0) {
         return true;
       }
+      if (i === 0) {
+        return JSON.stringify(step) !== JSON.stringify(arr);
+      }
 
       return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
     });
@@ -164,6 +170,18 @@ function Game() {
 
   useEffect(() => {
     if (timeLeft <= 0) {
+      const { algorithm, difficulty, mode } = location.state;
+
+      navigate("/gameover", {
+        state: {
+          playerScore,
+          botScore,
+          algorithm,
+          difficulty,
+          mode,
+        },
+      });
+
       return;
     }
 
