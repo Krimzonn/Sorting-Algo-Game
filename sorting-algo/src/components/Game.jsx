@@ -70,7 +70,15 @@ function Game() {
 
     const arr = randArrGen(8);
     const sortFunc = algorithmMap[algorithm];
-    const generatedSteps = sortFunc([...arr], 8);
+    const rawSteps = sortFunc([...arr], arr.length);
+
+    const generatedSteps = rawSteps.filter((step, i) => {
+      if (i == 0) {
+        return true;
+      }
+
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+    });
 
     setPlayerCards(arr);
     setBotCards([...arr]);

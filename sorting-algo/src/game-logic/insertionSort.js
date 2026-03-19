@@ -1,24 +1,21 @@
-function insertionSort(arr, size)
-{
-   const steps = [];
+function insertionSort(arr, size) {
+  const steps = [];
 
-   for (let i = 1; i < size; i++)
-   {
-     const el = arr[i];
-     let left = i - 1;
+  for (let i = 1; i < size; i++) {
+    const el = arr[i];
+    let left = i - 1;
 
-     while (left >= 0 && arr[left] > el)
-     {
-        arr[left + 1] = arr[left];
-        left--;
-     }
+    while (left >= 0 && arr[left] > el) {
+      arr[left + 1] = arr[left];
+      left--;
+      arr[left + 1] = el;
+      steps.push([...arr]);
+    }
 
-     arr[left + 1] = el;
+    arr[left + 1] = el;
+  }
 
-     steps.push([...arr]);
-   }
-
-   return steps;
+  return steps;
 }
 
 export default insertionSort;
