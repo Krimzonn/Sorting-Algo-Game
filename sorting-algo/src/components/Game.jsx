@@ -28,6 +28,8 @@ function Game() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
 
+  const [invalidMove, setInvalidMove] = useState(false);
+
   const [botSteps, setBotSteps] = useState([]);
   const [botStepIndex, setBotStepIndex] = useState(0);
 
@@ -123,6 +125,8 @@ function Game() {
         setSelectedIndices([]);
       } else {
         setSelectedIndices([]);
+        setInvalidMove(true);
+        setTimeout(() => setInvalidMove(false), 400);
       }
     },
     [playerCards, steps, currentStepIndex, handleSequenceCompletion],
@@ -288,12 +292,14 @@ function Game() {
             cards={playerCards}
             cursorIndex={cursorIndex}
             selectedIndices={selectedIndices}
+            invalidMove={invalidMove}
           />
           <PlayerBoard
             playerName={"Bot"}
             cards={botCards}
             cursorIndex={-1}
             selectedIndices={[]}
+            invalidMove={false}
           />
         </div>
       </div>
