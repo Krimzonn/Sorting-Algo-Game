@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+/*
+==========================================================
+*********************************************************
+
+ALL THE CSS ANIMATIONS ARE PLACED BELOW THIS COMMENT
+
+*********************************************************
+==========================================================
+*/
+
 @keyframes float {
   0% {
     transform: translateY(0px);
@@ -33,6 +43,42 @@
   }
 }
 
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutLeft {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(100%);
+  }
+}
+
 .floating {
   animation: float 3s ease-in-out infinite;
 }
@@ -40,6 +86,32 @@
 .shake {
   animation: shake 0.5s ease-in-out;
 }
+
+.slide-in-left {
+  animation: slideInLeft 0.4s ease-in-out forwards;
+}
+
+.slide-out-left {
+  animation: slideOutLeft 0.4s ease-in-out forwards;
+}
+
+.slide-in-right {
+  animation: slideInRight 0.4s ease-in-out forwards;
+}
+
+.slide-out-right {
+  animation: slideOutRight 0.4s ease-in-out forwards;
+}
+
+/*
+==========================================================
+*********************************************************
+
+ALL THE CSS ANIMATIONS ARE PLACED ABOVE THIS COMMENT
+
+*********************************************************
+==========================================================
+*/
 
 body {
   background-color: #09090b;

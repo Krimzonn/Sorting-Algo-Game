@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import ParticleBackground from "./ParticleBackground";
+import SlideTransition from "./SlideTransition";
 
 function MainMenu() {
   const navigate = useNavigate();
@@ -352,7 +353,11 @@ function MainMenu() {
     );
   }
 
-  return <>{content}</>;
+  return (
+    <>
+      <SlideTransition triggerKey={screen}>{content}</SlideTransition>
+    </>
+  );
 }
 
 export default MainMenu;
