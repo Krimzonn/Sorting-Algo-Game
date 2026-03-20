@@ -1,7 +1,7 @@
 import { useNavigate, useLocation } from "react-router-dom";
 import TopBar from "./TopBar";
 import NumberCard from "./NumberCard";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import randArrGen from "../game-logic/arrayGenerator";
 import bubbleSort from "../game-logic/bubbleSort";
 import insertionSort from "../game-logic/insertionSort";
@@ -27,6 +27,11 @@ function Game() {
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
+
+  const [botSteps, setBotSteps] = useState([]);
+  const [botStepIndex, setBotStepIndex] = useState(0);
+
+  const botIntervalRef = useRef(null);
 
   const handleSequenceCompletion = useCallback(() => {
     setPlayerScore((s) => s + 1);
@@ -55,9 +60,37 @@ function Game() {
     setPlayerCards(arr);
     setBotCards([...arr]);
     setSteps(newSteps);
+    setBotSteps(newSteps);
+    setBotStepIndex(0);
     setCurrentStepIndex(0);
     setSelectedIndices([]);
     setCursorIndex(0);
+  }, [location.state]);
+
+  const handleBotSequenceComplete = useCallback(() => {
+    setBotScore((s) => s + 1);
+
+    const { algorithm } = location.state;
+    const algorithmMap = {
+      bubbleSort: bubbleSort,
+      insertionSort: insertionSort,
+      selectionSort: selectionSort,
+    };
+
+    const arr = randArrGen(8);
+    const sortFunc = algorithmMap[algorithm];
+    const rawSteps = sortFunc([...arr], arr.length);
+
+    const newSteps = rawSteps.filter((step, i) => {
+      if (i === 0) {
+        return JSON.stringify(step) !== JSON.stringify(arr);
+      }
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+    });
+
+    setBotCards(arr);
+    setBotSteps(newSteps);
+    setBotStepIndex(0);
   }, [location.state]);
 
   const handleSwap = useCallback(
@@ -127,6 +160,8 @@ function Game() {
     setPlayerCards(arr);
     setBotCards([...arr]);
     setSteps(generatedSteps);
+
+    setBotSteps(generatedSteps);
 
     console.log("Array: ", arr);
     console.log("Steps: ", generatedSteps);
@@ -198,6 +233,32 @@ function Game() {
 
     return () => clearInterval(interval);
   }, [timeLeft]);
+
+  useEffect(() => {
+    const { difficulty } = location.state;
+
+    if (botSteps.length === 0) {
+      return;
+    }
+
+    const botSpeed =
+      difficulty === "easy" ? 4000 : difficulty === "medium" ? 2500 : 1000;
+
+    botIntervalRef.current = setInterval(() => {
+      setBotStepIndex((bsi) => {
+        if (bsi >= botSteps.length) {
+          handleBotSequenceComplete();
+          clearInterval(botIntervalRef.current);
+          return bsi;
+        }
+
+        setBotCards(botSteps[bsi]);
+        return bsi + 1;
+      });
+    }, botSpeed);
+
+    return () => clearInterval(botIntervalRef.current);
+  }, [botSteps, handleBotSequenceComplete]);
 
   if (!location.state) {
     return (
