@@ -7,8 +7,8 @@ function SlideTransition({ children, triggerKey }) {
     setPhase("closing");
 
     const timer1 = setTimeout(() => setPhase("paused"), 500);
-    const timer2 = setTimeout(() => setPhase("opening"), 1800);
-    const timer3 = setTimeout(() => setPhase("idle"), 2000);
+    const timer2 = setTimeout(() => setPhase("opening"), 1600);
+    const timer3 = setTimeout(() => setPhase("idle"), 2100);
 
     return () => {
       clearTimeout(timer1);
