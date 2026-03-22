@@ -73,6 +73,9 @@ function MainMenu() {
             className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating"
             style={{ animationDelay: "0s" }}
           >
+            <p className="text-xs font-mono mt-3 px-2 py-1 rounded-full bg-cyan-900 text-cyan-300 border border-cyan-500">
+              O(n²)
+            </p>
             <p className="font-bold">Bubble Sort</p>
             <p className="text-xs text-zinc-400 mt-2">Compare Neighbors</p>
             <button
@@ -91,6 +94,9 @@ function MainMenu() {
             className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating"
             style={{ animationDelay: "0.5s" }}
           >
+            <p className="text-xs font-mono mt-3 px-2 py-1 rounded-full bg-cyan-900 text-cyan-300 border border-cyan-500">
+              O(n²)
+            </p>
             <p className="font-bold">Selection Sort</p>
             <p className="text-xs text-zinc-400 mt-2">Find The Minimum</p>
             <button
@@ -109,6 +115,9 @@ function MainMenu() {
             className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating"
             style={{ animationDelay: "1s" }}
           >
+            <p className="text-xs font-mono mt-3 px-2 py-1 rounded-full bg-cyan-900 text-cyan-300 border border-cyan-500">
+              O(n²)
+            </p>
             <p className="font-bold">Insertion Sort</p>
             <p className="text-xs text-zinc-400 mt-2">Build Sorted Left</p>
             <button
@@ -127,6 +136,9 @@ function MainMenu() {
             className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating"
             style={{ animationDelay: "1.5s" }}
           >
+            <p className="text-xs font-mono mt-3 px-2 py-1 rounded-full bg-fuchsia-900 text-fuchsia-300 border border-fuchsia-500">
+              O(n log n)
+            </p>
             <p className="font-bold">Quick Sort</p>
             <p className="text-xs text-zinc-400 mt-2">Pivot And Partition</p>
             <button
@@ -145,6 +157,9 @@ function MainMenu() {
             className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-6 w-40 text-center text-white floating"
             style={{ animationDelay: "2s" }}
           >
+            <p className="text-xs font-mono mt-3 px-2 py-1 rounded-full bg-fuchsia-900 text-fuchsia-300 border border-fuchsia-500">
+              O(n log n)
+            </p>
             <p className="font-bold">Heap Sort</p>
             <p className="text-xs text-zinc-400 mt-2">Build, Swap, Repeat</p>
             <button
