@@ -152,7 +152,7 @@ function MainMenu() {
               type="button"
               onClick={() => {
                 setScreen("difficulty");
-                setSelectAlgorithm("mergeSort");
+                setSelectAlgorithm("heapSort");
               }}
             >
               SELECT

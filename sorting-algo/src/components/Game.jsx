@@ -44,6 +44,7 @@ function Game() {
       bubbleSort: bubbleSort,
       insertionSort: insertionSort,
       selectionSort: selectionSort,
+      heapSort: heapSort,
     };
 
     const arr = randArrGen(8);
@@ -52,12 +53,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        const curr = step.arr || step;
-        return JSON.stringify(curr) !== JSON.stringify(arr);
+        return true;
       }
-      const curr = step.arr || step;
-      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
-      return JSON.stringify(curr) !== JSON.stringify(prev);
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
     });
 
     setPlayerCards(arr);
@@ -78,6 +76,7 @@ function Game() {
       bubbleSort: bubbleSort,
       insertionSort: insertionSort,
       selectionSort: selectionSort,
+      heapSort: heapSort,
     };
 
     const arr = randArrGen(8);
@@ -86,12 +85,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        const curr = step.arr || step;
-        return JSON.stringify(curr) !== JSON.stringify(arr);
+        return true;
       }
-      const curr = step.arr || step;
-      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
-      return JSON.stringify(curr) !== JSON.stringify(prev);
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
     });
 
     setBotCards(arr);
@@ -148,6 +144,7 @@ function Game() {
       bubbleSort: bubbleSort,
       insertionSort: insertionSort,
       selectionSort: selectionSort,
+      heapSort: heapSort,
     };
 
     const arr = randArrGen(8);
@@ -156,12 +153,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        const curr = step.arr || step;
-        return JSON.stringify(curr) !== JSON.stringify(arr);
+        return true;
       }
-      const curr = step.arr || step;
-      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
-      return JSON.stringify(curr) !== JSON.stringify(prev);
+      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
     });
 
     setPlayerCards(arr);
