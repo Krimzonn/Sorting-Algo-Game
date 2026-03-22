@@ -8,6 +8,7 @@ import insertionSort from "../game-logic/insertionSort";
 import selectionSort from "../game-logic/selectionSort";
 import PlayerBoard from "./PlayerBoard";
 import moveValidator from "../game-logic/moveValidator";
+import heapSort from "../game-logic/heapSort";
 
 function Game() {
   const location = useLocation();
@@ -49,20 +50,20 @@ function Game() {
     const sortFunc = algorithmMap[algorithm];
     const rawSteps = sortFunc([...arr], arr.length);
 
-    const newSteps = rawSteps.filter((step, i) => {
+    let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        return true;
+        const curr = step.arr || step;
+        return JSON.stringify(curr) !== JSON.stringify(arr);
       }
-      if (i === 0) {
-        return JSON.stringify(step) !== JSON.stringify(arr);
-      }
-      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+      const curr = step.arr || step;
+      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
+      return JSON.stringify(curr) !== JSON.stringify(prev);
     });
 
     setPlayerCards(arr);
     setBotCards([...arr]);
-    setSteps(newSteps);
-    setBotSteps(newSteps);
+    setSteps(generatedSteps);
+    setBotSteps(generatedSteps);
     setBotStepIndex(0);
     setCurrentStepIndex(0);
     setSelectedIndices([]);
@@ -83,15 +84,18 @@ function Game() {
     const sortFunc = algorithmMap[algorithm];
     const rawSteps = sortFunc([...arr], arr.length);
 
-    const newSteps = rawSteps.filter((step, i) => {
+    let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        return JSON.stringify(step) !== JSON.stringify(arr);
+        const curr = step.arr || step;
+        return JSON.stringify(curr) !== JSON.stringify(arr);
       }
-      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+      const curr = step.arr || step;
+      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
+      return JSON.stringify(curr) !== JSON.stringify(prev);
     });
 
     setBotCards(arr);
-    setBotSteps(newSteps);
+    setBotSteps(generatedSteps);
     setBotStepIndex(0);
   }, [location.state]);
 
@@ -150,15 +154,14 @@ function Game() {
     const sortFunc = algorithmMap[algorithm];
     const rawSteps = sortFunc([...arr], arr.length);
 
-    const generatedSteps = rawSteps.filter((step, i) => {
-      if (i == 0) {
-        return true;
-      }
+    let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
-        return JSON.stringify(step) !== JSON.stringify(arr);
+        const curr = step.arr || step;
+        return JSON.stringify(curr) !== JSON.stringify(arr);
       }
-
-      return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
+      const curr = step.arr || step;
+      const prev = rawSteps[i - 1].arr || rawSteps[i - 1];
+      return JSON.stringify(curr) !== JSON.stringify(prev);
     });
 
     setPlayerCards(arr);
@@ -256,6 +259,7 @@ function Game() {
           return bsi;
         }
 
+        const stepData = botSteps[bsi];
         setBotCards(botSteps[bsi]);
         return bsi + 1;
       });
