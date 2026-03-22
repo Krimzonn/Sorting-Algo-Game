@@ -184,12 +184,20 @@ function MainMenu() {
       </div>
     );
   } else if (screen === "difficulty") {
+    const recommendedTimes = {
+      bubbleSort: 75,
+      selectionSort: 75,
+      insertionSort: 75,
+      heapSort: 160,
+      quickSort: 100,
+    };
+
+    const recommended = recommendedTimes[selectAlgorithm];
     content = (
       <div className=" h-screen flex flex-col items-center justify-center ">
         <h1 className="text-3xl font-bold text-fuchsia-500 mb-10">
           Choose A Difficulty
         </h1>
-
         <div className="flex flex-row gap-8 mt-10">
           <div className="bg-zinc-800 border border-green-400 rounded-xl p-7 w-40 text-center text-white floating glowGreenEffect">
             <p className="font-bold">🟢 EASY</p>
@@ -233,7 +241,6 @@ function MainMenu() {
             </button>
           </div>
         </div>
-
         <div className="flex flex-row gap-8 mt-10">
           <button
             className="bg-cyan-400 text-black font-bold px-8 py-3 rounded-xl"
@@ -248,7 +255,6 @@ function MainMenu() {
             PvP MODE
           </button>
         </div>
-
         <button
           className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
           type="button"
@@ -256,7 +262,6 @@ function MainMenu() {
         >
           BACK
         </button>
-
         {showTimeModal && (
           <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
             <div className="bg-zinc-900 border-2 border-fuchsia-500 rounded-2xl p-10 flex flex-col items-center gap-6">
@@ -280,6 +285,9 @@ function MainMenu() {
                   <p className="text-4xl mb-2">⏱️</p>
                   <p className="text-2xl font-bold text-fuchsia-400">40s</p>
                   <p className="text-xs text-zinc-400 mt-1">Quick</p>
+                  {recommended === 40 && (
+                    <p className="text-xs text-green-400 font-bold mt-1">⭐</p>
+                  )}
                 </div>
 
                 <div
@@ -298,6 +306,9 @@ function MainMenu() {
                   <p className="text-4xl mb-2">⏱️</p>
                   <p className="text-2xl font-bold text-fuchsia-400">75s</p>
                   <p className="text-xs text-zinc-400 mt-1">Standard</p>
+                  {recommended === 75 && (
+                    <p className="text-xs text-green-400 font-bold mt-1">⭐</p>
+                  )}
                 </div>
 
                 <div
@@ -316,6 +327,9 @@ function MainMenu() {
                   <p className="text-4xl mb-2">⏱️</p>
                   <p className="text-2xl font-bold text-fuchsia-400">100s</p>
                   <p className="text-xs text-zinc-400 mt-1">Extended</p>
+                  {recommended === 100 && (
+                    <p className="text-xs text-green-400 font-bold mt-1">⭐</p>
+                  )}
                 </div>
 
                 <div
@@ -334,6 +348,9 @@ function MainMenu() {
                   <p className="text-4xl mb-2">⏱️</p>
                   <p className="text-2xl font-bold text-fuchsia-400">130s</p>
                   <p className="text-xs text-zinc-400 mt-1">Marathon</p>
+                  {recommended === 130 && (
+                    <p className="text-xs text-green-400 font-bold mt-1">⭐</p>
+                  )}
                 </div>
 
                 <div
@@ -352,6 +369,9 @@ function MainMenu() {
                   <p className="text-4xl mb-2">⏱️</p>
                   <p className="text-2xl font-bold text-fuchsia-400">160s</p>
                   <p className="text-xs text-zinc-400 mt-1">Ultimate</p>
+                  {recommended === 160 && (
+                    <p className="text-xs text-green-400 font-bold mt-1">⭐</p>
+                  )}
                 </div>
               </div>
 
