@@ -9,6 +9,7 @@ import selectionSort from "../game-logic/selectionSort";
 import PlayerBoard from "./PlayerBoard";
 import moveValidator from "../game-logic/moveValidator";
 import heapSort from "../game-logic/heapSort";
+import quickSort from "../game-logic/quickSort";
 
 function Game() {
   const location = useLocation();
@@ -45,6 +46,7 @@ function Game() {
       insertionSort: insertionSort,
       selectionSort: selectionSort,
       heapSort: heapSort,
+      quickSort: quickSort,
     };
 
     const arr = randArrGen(8);
@@ -53,6 +55,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
+        if (algorithm === "heapSort" || algorithm === "quickSort") {
+          return JSON.stringify(step) !== JSON.stringify(arr);
+        }
         return true;
       }
       return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
@@ -77,6 +82,7 @@ function Game() {
       insertionSort: insertionSort,
       selectionSort: selectionSort,
       heapSort: heapSort,
+      quickSort: quickSort,
     };
 
     const arr = randArrGen(8);
@@ -85,6 +91,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
+        if (algorithm === "heapSort" || algorithm === "quickSort") {
+          return JSON.stringify(step) !== JSON.stringify(arr);
+        }
         return true;
       }
       return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
@@ -145,6 +154,7 @@ function Game() {
       insertionSort: insertionSort,
       selectionSort: selectionSort,
       heapSort: heapSort,
+      quickSort: quickSort,
     };
 
     const arr = randArrGen(8);
@@ -153,6 +163,9 @@ function Game() {
 
     let generatedSteps = rawSteps.filter((step, i) => {
       if (i === 0) {
+        if (algorithm === "heapSort" || algorithm === "quickSort") {
+          return JSON.stringify(step) !== JSON.stringify(arr);
+        }
         return true;
       }
       return JSON.stringify(step) !== JSON.stringify(rawSteps[i - 1]);
