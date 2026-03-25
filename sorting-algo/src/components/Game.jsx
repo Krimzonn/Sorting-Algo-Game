@@ -12,8 +12,18 @@ import heapSort from "../game-logic/heapSort";
 import quickSort from "../game-logic/quickSort";
 
 function Game() {
+  const defaultState = {
+    algorithm: "bubbleSort",
+    difficulty: "easy",
+    mode: "solo",
+    time: 90,
+  };
+
   const location = useLocation();
   const navigate = useNavigate();
+
+  const state = location.state || defaultState;
+  const { algorithm, difficulty, mode, time } = state;
 
   const [playerCards, setPlayerCards] = useState([]);
   const [botCards, setBotCards] = useState([]);
@@ -57,7 +67,6 @@ function Game() {
     sequenceTimerRef.current = 0;
     setTimeout(() => setBonusText(""), 1500);
 
-    const { algorithm } = location.state;
     const algorithmMap = {
       bubbleSort: bubbleSort,
       insertionSort: insertionSort,
@@ -295,7 +304,6 @@ function Game() {
           return bsi;
         }
 
-        const stepData = botSteps[bsi];
         setBotCards(botSteps[bsi]);
         return bsi + 1;
       });
@@ -314,8 +322,6 @@ function Game() {
       </div>
     );
   }
-
-  const { algorithm, difficulty, mode, time } = location.state;
 
   return (
     <>
