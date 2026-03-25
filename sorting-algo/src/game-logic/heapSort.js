@@ -24,6 +24,7 @@ function heapify(arr, n, i, steps) {
 
 function heapSort(arr, size) {
   let steps = [];
+  const sorted = [...arr].sort((a, b) => a - b);
 
   for (let i = Math.floor(size / 2) - 1; i >= 0; i--) {
     heapify(arr, size, i, steps);
@@ -36,10 +37,16 @@ function heapSort(arr, size) {
 
     steps.push([...arr]);
 
-    heapify(arr, i, 0, steps);
+    if (i > 1) {
+      heapify(arr, i, 0, steps);
+    }
   }
 
-  return steps;
+  const firstSortedIndex = steps.findIndex(
+    (step) => JSON.stringify(step) === JSON.stringify(sorted),
+  );
+
+  return firstSortedIndex !== -1 ? steps.slice(0, firstSortedIndex + 1) : steps;
 }
 
 export default heapSort;

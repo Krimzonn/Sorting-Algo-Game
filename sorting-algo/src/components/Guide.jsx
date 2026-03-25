@@ -79,7 +79,7 @@ const guideData = {
     complexity: "O(n log n)",
     difficulty: "Advanced",
     description:
-      "Heap Sort first builds a max heap from the array, then repeatedly extracts the largest element and places it at the end, rebuilding the heap each time.",
+      "Heap Sort first builds a max heap from the array, then repeatedly extracts the largest element and places it at the end, rebuilding the heap each time. This sorting algorithm will go all the way to the end even if the sequence is sorted or not.",
     rules: [
       "First build a max heap — every parent must be larger than its children",
       "Swap the root with the last unsorted element",
@@ -88,10 +88,20 @@ const guideData = {
     example: [
       [3, 1, 4, 2],
       [4, 1, 3, 2],
-      [4, 3, 1, 2],
-      [1, 3, 4, 2],
+      [4, 2, 3, 1],
+      [1, 2, 3, 4],
+      [2, 1, 3, 4],
+      [1, 2, 3, 4],
     ],
   },
+};
+
+const algoNames = {
+  bubbleSort: "Bubble Sort",
+  selectionSort: "Selection Sort",
+  insertionSort: "Insertion Sort",
+  quickSort: "Quick Sort",
+  heapSort: "Heap Sort",
 };
 
 function Guide() {
@@ -116,7 +126,7 @@ function Guide() {
             onClick={() => setSelected(algo)}
             className={`text-left px-4 py-3 rounded-xl font-bold transition-all duration-200 ${selected === algo ? "bg-fuchsia-500 text-white" : "text-zinc-400 hover:text-white hover:bg-zinc-800"}`}
           >
-            {algo}
+            {algoNames[algo]}
           </button>
         ))}
 
@@ -160,11 +170,39 @@ function Guide() {
               <ul className="flex flex-col">
                 {guideData[selected].rules.map((rule, i) => (
                   <li key={i} className="flex items-start gap-3 text-zinc-300">
-                    <span className="text-fuchsia-500 font-bol">{i + 1}</span>
+                    <span className="text-fuchsia-500 font-bold">{i + 1}</span>
                     {rule}
                   </li>
                 ))}
               </ul>
+            </div>
+
+            <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-6">
+              <h2 className="text-lg font-bold text-fuchsia-400 mb-3">
+                Example
+              </h2>
+              <div className="flex flex-col gap-3">
+                {guideData[selected].example.map((step, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <span className="text-zinc-500 text-sm w-16">
+                      {i === 0 ? "Start: " : `Step ${i}: `}
+                    </span>
+                    <div className="flex gap-2">
+                      {step.map((num, j) => (
+                        <div
+                          key={j}
+                          className="w-10 h-10 bg-zinc-800 border border-fuchsia-500 rounded-lg flex items-center justify-center text-white font-bold text-sm"
+                        >
+                          {num}
+                        </div>
+                      ))}
+                    </div>
+                    {i === guideData[selected].example.length - 1 && (
+                      <span className="text-green-400 font-bold">Sorted</span>
+                    )}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         )}

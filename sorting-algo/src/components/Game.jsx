@@ -25,7 +25,6 @@ function Game() {
   const [botScore, setBotScore] = useState(0);
 
   const [timeLeft, setTimeLeft] = useState(90);
-  const [sequenceTimer, setSequenceTimer] = useState(0);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
@@ -37,8 +36,26 @@ function Game() {
 
   const botIntervalRef = useRef(null);
 
+  const [bonusText, setBonusText] = useState("");
+
+  const sequenceTimerRef = useRef(0);
+
   const handleSequenceCompletion = useCallback(() => {
-    setPlayerScore((s) => s + 1);
+    const elapsed = sequenceTimerRef.current;
+
+    if (elapsed < 10) {
+      setPlayerScore((s) => s + 3);
+      setBonusText("🔥 +3 BONUS!");
+    } else if (elapsed < 15) {
+      setPlayerScore((s) => s + 2);
+      setBonusText("⭐ +2 BONUS!");
+    } else {
+      setPlayerScore((s) => s + 1);
+      setBonusText("");
+    }
+
+    sequenceTimerRef.current = 0;
+    setTimeout(() => setBonusText(""), 1500);
 
     const { algorithm } = location.state;
     const algorithmMap = {
@@ -140,6 +157,18 @@ function Game() {
     },
     [playerCards, steps, currentStepIndex, handleSequenceCompletion],
   );
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      return;
+    }
+
+    const interval = setInterval(() => {
+      sequenceTimerRef.current += 1;
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [timeLeft]);
 
   useEffect(() => {
     if (!location.state) {
@@ -297,6 +326,11 @@ function Game() {
           playerscore={playerScore}
           botscore={botScore}
         />
+        {bonusText && (
+          <div className="fixed top-26 left-1/2 text-center text-2xl font-bold text-yellow-400 animate-bounce">
+            {bonusText}
+          </div>
+        )}
         <div className="flex flex-col gap-6 p-8 bg-zinc-950 min-h-screen">
           <PlayerBoard
             playerName={"You"}
