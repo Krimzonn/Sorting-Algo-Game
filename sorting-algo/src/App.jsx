@@ -9,12 +9,12 @@ import quickSort from "./game-logic/quickSort";
 import Guide from "./components/Guide";
 
 function App() {
-  useEffect(() => {
-    const arr = randArrGen(6);
-    console.log("Original Array: ", arr);
-    const steps = quickSort([...arr], 6);
-    console.log("Steps: ", steps);
-  }, []);
+  // useEffect(() => {
+  //   const arr = randArrGen(6);
+  //   console.log("Original Array: ", arr);
+  //   const steps = quickSort([...arr], 6);
+  //   console.log("Steps: ", steps);
+  // }, []);
 
   return (
     <Routes>

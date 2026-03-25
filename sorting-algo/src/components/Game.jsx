@@ -43,10 +43,10 @@ function Game() {
   const handleSequenceCompletion = useCallback(() => {
     const elapsed = sequenceTimerRef.current;
 
-    if (elapsed < 10) {
+    if (elapsed < 13) {
       setPlayerScore((s) => s + 3);
       setBonusText("🔥 +3 BONUS!");
-    } else if (elapsed < 15) {
+    } else if (elapsed < 19) {
       setPlayerScore((s) => s + 2);
       setBonusText("⭐ +2 BONUS!");
     } else {
@@ -327,7 +327,7 @@ function Game() {
           botscore={botScore}
         />
         {bonusText && (
-          <div className="fixed top-26 left-1/2 text-center text-2xl font-bold text-yellow-400 animate-bounce">
+          <div className="fixed top-24 left-1/2 -translate-x-1/2 z-50 text-center text-2xl font-bold text-yellow-400 animate-bounce bg-zinc-900 border border-yellow-400 px-6 py-3 rounded-xl">
             {bonusText}
           </div>
         )}
