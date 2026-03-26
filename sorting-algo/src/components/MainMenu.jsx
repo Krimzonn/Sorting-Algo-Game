@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import ParticleBackground from "./ParticleBackground";
 import SlideTransition from "./SlideTransition";
 
@@ -11,6 +11,19 @@ function MainMenu() {
   const [selectDifficulty, setSelectDifficulty] = useState(null);
   const [gameMode, setGameMode] = useState("ai");
   const [showTimeModal, setShowTimeModal] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const pendingScreenRef = useRef(null);
+
+  const transitionTo = (newScreen) => {
+    pendingScreenRef.current = newScreen;
+    setIsTransitioning(true);
+
+    setTimeout(() => {
+      setScreen(newScreen);
+      setIsTransitioning(false);
+    }, 1000);
+  };
 
   useEffect(() => {
     if (screen === "difficulty") {
@@ -39,7 +52,7 @@ function MainMenu() {
           <button
             className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
             type="button"
-            onClick={() => setScreen("algorithm")}
+            onClick={() => transitionTo("algorithm")}
           >
             PLAY
           </button>
@@ -59,7 +72,7 @@ function MainMenu() {
           <button
             className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
             type="button"
-            onClick={() => setScreen("settings")}
+            onClick={() => transitionTo("settings")}
           >
             SETTINGS
           </button>
@@ -88,7 +101,7 @@ function MainMenu() {
               className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10"
               type="button"
               onClick={() => {
-                setScreen("difficulty");
+                transitionTo("difficulty");
                 setSelectAlgorithm("bubbleSort");
               }}
             >
@@ -109,7 +122,7 @@ function MainMenu() {
               className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10"
               type="button"
               onClick={() => {
-                setScreen("difficulty");
+                transitionTo("difficulty");
                 setSelectAlgorithm("selectionSort");
               }}
             >
@@ -130,7 +143,7 @@ function MainMenu() {
               className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10"
               type="button"
               onClick={() => {
-                setScreen("difficulty");
+                transitionTo("difficulty");
                 setSelectAlgorithm("insertionSort");
               }}
             >
@@ -151,7 +164,7 @@ function MainMenu() {
               className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10"
               type="button"
               onClick={() => {
-                setScreen("difficulty");
+                transitionTo("difficulty");
                 setSelectAlgorithm("quickSort");
               }}
             >
@@ -172,7 +185,7 @@ function MainMenu() {
               className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-3 rounded-xl mt-10"
               type="button"
               onClick={() => {
-                setScreen("difficulty");
+                transitionTo("difficulty");
                 setSelectAlgorithm("heapSort");
               }}
             >
@@ -183,7 +196,7 @@ function MainMenu() {
 
         <button
           className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
-          onClick={() => setScreen("main")}
+          onClick={() => transitionTo("main")}
         >
           BACK
         </button>
@@ -264,7 +277,7 @@ function MainMenu() {
         <button
           className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
           type="button"
-          onClick={() => setScreen("algorithm")}
+          onClick={() => transitionTo("algorithm")}
         >
           BACK
         </button>
@@ -396,7 +409,7 @@ function MainMenu() {
 
   return (
     <>
-      <SlideTransition triggerKey={screen}>{content}</SlideTransition>
+      <SlideTransition triggerKey={isTransitioning}>{content}</SlideTransition>
     </>
   );
 }

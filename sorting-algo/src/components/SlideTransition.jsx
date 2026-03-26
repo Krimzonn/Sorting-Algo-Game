@@ -26,7 +26,7 @@ function SlideTransition({ children, triggerKey }) {
           <div
             className={`fixed top-0 left-0 w-1/2 h-full bg-white z-50 
             ${phase === "opening" ? "slide-out-left" : "slide-in-left"}`}
-            style={{ width: "43%" }}
+            style={{ width: "50%" }}
           ></div>
 
           {phase === "paused" && (
@@ -41,9 +41,9 @@ function SlideTransition({ children, triggerKey }) {
           )}
 
           <div
-            className={`fixed top-0 right-0 w-1/2 h-full bg-white z-50
+            className={`fixed top-0 right-0 w-1/2 h-full bg-white z-1
             ${phase === "opening" ? "slide-out-right" : "slide-in-right"}`}
-            style={{ width: "43%" }}
+            style={{ width: "50%" }}
           ></div>
         </>
       )}
