@@ -39,6 +39,8 @@ function Game() {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [steps, setSteps] = useState([]);
 
+  const [totalBonus, setTotalBonus] = useState(0);
+
   const [invalidMove, setInvalidMove] = useState(false);
 
   const [botSteps, setBotSteps] = useState([]);
@@ -55,9 +57,11 @@ function Game() {
 
     if (elapsed < 13) {
       setPlayerScore((s) => s + 3);
+      setTotalBonus((b) => b + 2);
       setBonusText("🔥 +3 BONUS!");
     } else if (elapsed < 19) {
       setPlayerScore((s) => s + 2);
+      setTotalBonus((b) => b + 1);
       setBonusText("⭐ +2 BONUS!");
     } else {
       setPlayerScore((s) => s + 1);
@@ -266,6 +270,8 @@ function Game() {
           algorithm,
           difficulty,
           mode,
+          playerSequences: playerScore,
+          totalBonus,
         },
       });
 
