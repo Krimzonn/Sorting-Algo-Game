@@ -3,10 +3,8 @@ import LeaderBoard from "./components/LeaderBoard";
 import MainMenu from "./components/MainMenu";
 import Game from "./components/Game";
 import GameOver from "./components/GameOver";
-import randArrGen from "./game-logic/arrayGenerator";
-import { useEffect } from "react";
-import quickSort from "./game-logic/quickSort";
 import Guide from "./components/Guide";
+import Visualizer from "./components/Visualizer";
 
 function App() {
   // useEffect(() => {
@@ -23,6 +21,7 @@ function App() {
       <Route path="/leaderboard" element={<LeaderBoard />} />
       <Route path="/gameover" element={<GameOver />} />
       <Route path="/guide" element={<Guide />} />
+      <Route path="/visualizer" element={<Visualizer />} />
     </Routes>
   );
 }

@@ -58,6 +58,12 @@ function MainMenu() {
           </button>
           <button
             className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
+            onClick={() => navigate("/visualizer")}
+          >
+            VISUALIZER
+          </button>
+          <button
+            className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
             type="button"
             onClick={() => navigate("/leaderboard")}
           >

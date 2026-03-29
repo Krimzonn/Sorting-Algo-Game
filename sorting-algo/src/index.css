@@ -113,6 +113,10 @@ ALL THE CSS ANIMATIONS ARE PLACED ABOVE THIS COMMENT
 ==========================================================
 */
 
+.playfair {
+  font-family: "Playfair Display", serif;
+}
+
 body {
   background-color: #09090b;
 }

@@ -134,7 +134,7 @@ const guideData = {
         term: "Heap",
         color: "red",
         description:
-          "A heap (in Heap Sort) is a complete binary tree that satisfies the heap property: \nMax heap ---> every parent node (the point where two numbers branch off another number) is greater than or equal to its children i.e largest number sits at the top. \nMin Heap every parent node (the point where two numbers branch off another number) is smaller than the children so the smallest number sits at the top.",
+          "A heap (in Heap Sort) is a complete binary tree that satisfies the heap property: \nMax heap ---> every parent node (the point where two numbers branch off another number) is greater than or equal to its children i.e largest number sits at the top. \nMin Heap ---> every parent node (the point where two numbers branch off another number) is smaller than the children so the smallest number sits at the top.",
         highlight:
           "The Root is where either the largest or smallest number sits ---> At the very top. (in an array it is the left most element by default)",
       },
