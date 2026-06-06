@@ -100,7 +100,10 @@ function Visualizer() {
                   {algo.description}
                 </p>
                 <div className="mt-auto pt-6">
-                  <button className="w-full bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 py-3 rounded-xl mt-10">
+                  <button
+                    className="w-full bg-transparent border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 py-3 rounded-xl mt-10"
+                    onClick={() => navigate(`/visualizer/${algo.id}`)}
+                  >
                     Visualize
                   </button>
                 </div>
