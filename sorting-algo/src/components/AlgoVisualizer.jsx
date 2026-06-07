@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import bubbleSortVisualizerGen from "../game-logic/bubbleSortVisualizerGen";
+import selectionSortVisualizerGen from "../game-logic/selectionSortVisualizerGen";
+import insertionSortVisualizerGen from "../game-logic/insertionSortVisualizerGen";
 import randArrGen from "../game-logic/arrayGenerator";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -38,6 +40,47 @@ const codeSnippets = {
   }
 }`,
   },
+  selectionSort: {
+    description:
+      "The Selection Sort algorithm works by finding the smallest number and putting it in it's correct index. The outer loop tracks the current position being filled, while the inner loop searches through the remaining unsorted elements to find the minimum index. Once the minimum is found, a single swap places it into position.",
+    cpp: `for (int i = 0; i < size; i++)
+{
+  int minIndex = i;
+
+  for (int j = i + 1; j < size; j++)
+  {
+     if (arr[j] < arr[minIndex])
+     {
+       minIndex = j;
+     }
+  }  
+
+      int temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+}`,
+    js: `for (let i = 0; i < size; i++)
+{
+  let minIndex = i;
+
+  for (let j = i + 1; j < size; j++)
+  {
+     if (arr[j] < arr[minIndex])
+     {
+       minIndex = j;
+     }
+  }      
+
+      let temp = arr[i];
+      arr[i] = arr[minIndex];
+      arr[minIndex] = temp;
+}`,
+  },
+  insertionSort: {
+    description: "",
+    cpp: ``,
+    js: ``,
+  },
 };
 
 const algoNames = {
@@ -47,6 +90,12 @@ const algoNames = {
   heapSort: "Heap Sort",
   quickSort: "Quick Sort",
   mergeSort: "Merge Sort",
+};
+
+const algoMapGen = {
+  bubbleSort: bubbleSortVisualizerGen,
+  selectionSort: selectionSortVisualizerGen,
+  insertionSort: insertionSortVisualizerGen,
 };
 
 /*
@@ -75,7 +124,8 @@ function AlgoVisualizer() {
   useEffect(() => {
     const arr = randArrGen(8);
     setArray(arr);
-    setSteps(bubbleSortVisualizerGen(arr));
+    const generator = algoMapGen[algoId];
+    setSteps(generator(arr));
     setCurrentStep(0);
   }, []);
 
@@ -128,6 +178,15 @@ function AlgoVisualizer() {
     }
   };
 
+  const handleReset = () => {
+    const arr = randArrGen(8);
+    setArray(arr);
+    const generator = algoMapGen[algoId];
+    setSteps(generator(arr));
+    setCurrentStep(0);
+    setIsPlaying(false);
+  };
+
   const narration = (snap) => {
     if (snap.isSwapped) {
       return `Swapped ${snap.array[snap.comparing[0]]} and ${snap.array[snap.comparing[1]]}`;
@@ -153,7 +212,7 @@ function AlgoVisualizer() {
       : "text-zinc-300";
 
   return (
-    <div className="min-h-screen bg-black text-white p-12">
+    <div className="min-h-screen bg-black text-white p-7">
       {showCode && (
         <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
           <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-2/5 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
@@ -213,6 +272,10 @@ function AlgoVisualizer() {
           Show Code
         </button>
       </div>
+
+      {/*
+       Below is the Code for the Bars
+     */}
       <div
         className="flex items-end gap-2 h-64 mt-10"
         style={{ height: "300px" }}
@@ -239,12 +302,38 @@ function AlgoVisualizer() {
           );
         })}
       </div>
+      {/*
+       Above is the Code for the Narration Box
+       ---------------------------------------
+     */}
 
+      <div className="flex items-center gap-6 mt-4">
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-3 rounded-sm bg-zinc-400"></div>
+          <span className="text-xs font-mono text-zinc-500">Unsorted</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-3 rounded-sm bg-yellow-400"></div>
+          <span className="text-xs font-mono text-zinc-500">Comparing</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <div className="w-8 h-3 rounded-sm bg-green-400"></div>
+          <span className="text-xs font-mono text-zinc-500">Sorted</span>
+        </div>
+      </div>
+
+      {/*
+       Below is the Code for the Narration Box
+     */}
       <div
         className={`mt-6 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg font-mono text-sm ${setColor}`}
       >
         {narration(snap)}
       </div>
+      {/*
+       Above is the Code for the Narration Box
+       ---------------------------------------
+     */}
 
       <div className="flex items-center gap-4 mt-10">
         <button
@@ -273,6 +362,14 @@ function AlgoVisualizer() {
         >
           Step
           <img src="/previous.png" className="w-5 h-5 invert opacity-60"></img>
+        </button>
+
+        <button
+          onClick={handleReset}
+          className="border border-zinc-500 text-zinc-400 px-6 py-2 rounded-lg hover:border-white hover:text-white transition-all font-mono disabled:opacity-30 flex items-center justfiy-center gap-2"
+        >
+          Reset{" "}
+          <img src="/undo.png" className="w-5 h-5 invert opacity-60"></img>
         </button>
 
         <span className="ml-auto text-zinc-500 font-mono text-lg">
