@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import bubbleSortVisualizerGen from "../game-logic/bubbleSortVisualizerGen";
 import selectionSortVisualizerGen from "../game-logic/selectionSortVisualizerGen";
 import insertionSortVisualizerGen from "../game-logic/insertionSortVisualizerGen";
+import quickSortVisualizerGen from "../game-logic/quickSortVisualizerGen";
+import heapSortVisualizerGen from "../game-logic/heapSortVisualizerGen";
 import randArrGen from "../game-logic/arrayGenerator";
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -77,6 +79,41 @@ const codeSnippets = {
 }`,
   },
   insertionSort: {
+    description:
+      "Insertion sort builds the sorted array one element at a time. It starts from the 1st index (not the 0th) and advances forward. The left side of the array is always assumed to be sorted and once it finds an element it walks backwards through the sorted position until the element is in it's correct spot. The for loop advances to the next element and the while loop is repsonsible for shifting the elements (except the selected one) to the right.",
+    cpp: `for(int i = 1; i < size; i++)
+{
+  int j = i - 1;
+
+  while(j >= 0 && arr[j] > arr[j + 1])
+  {
+    int temp = arr[j];
+    arr[j] = arr[j + 1];
+    arr[j + 1] = temp;
+
+    j--;
+  }
+}`,
+    js: `for(let i = 1; i < size; i++)
+{
+  let j = i - 1;
+
+  while(j >= 0 && arr[j] > arr[j + 1])
+  {
+    let temp = arr[j];
+    arr[j] = arr[j + 1];
+    arr[j + 1] = temp;
+
+    j--;
+  }
+}`,
+  },
+  quickSort: {
+    description: "",
+    cpp: ``,
+    js: ``,
+  },
+  heapSort: {
     description: "",
     cpp: ``,
     js: ``,
@@ -96,6 +133,8 @@ const algoMapGen = {
   bubbleSort: bubbleSortVisualizerGen,
   selectionSort: selectionSortVisualizerGen,
   insertionSort: insertionSortVisualizerGen,
+  quickSort: quickSortVisualizerGen,
+  heapSort: heapSortVisualizerGen,
 };
 
 /*
@@ -248,7 +287,7 @@ function AlgoVisualizer() {
               </button>
             </div>
 
-            <pre className="bg-zinc-950 text-green-400 text-sm font-mono whitespace-pre overflow-x-auto p-4 rounded-xl">
+            <pre className="bg-zinc-950 text-green-400 text-sm font-mono whitespace-pre overflow-x-auto p-4 rounded-xl max-h-50 overflow-y-auto">
               {activeTab === "cpp"
                 ? codeSnippets[algoId]?.cpp
                 : codeSnippets[algoId]?.js}
@@ -275,6 +314,7 @@ function AlgoVisualizer() {
 
       {/*
        Below is the Code for the Bars
+       ---------------------------------------
      */}
       <div
         className="flex items-end gap-2 h-64 mt-10"
@@ -303,7 +343,7 @@ function AlgoVisualizer() {
         })}
       </div>
       {/*
-       Above is the Code for the Narration Box
+       Above is the Code for the Bars
        ---------------------------------------
      */}
 
@@ -324,6 +364,7 @@ function AlgoVisualizer() {
 
       {/*
        Below is the Code for the Narration Box
+       ---------------------------------------
      */}
       <div
         className={`mt-6 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg font-mono text-sm ${setColor}`}
