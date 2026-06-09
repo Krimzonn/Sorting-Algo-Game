@@ -6,6 +6,7 @@ import GameOver from "./components/GameOver";
 import Guide from "./components/Guide";
 import Visualizer from "./components/Visualizer";
 import AlgoVisualizer from "./components/AlgoVisualizer";
+import StackVisualizer from "./components/StackVisualizer";
 
 function App() {
   // useEffect(() => {
@@ -23,6 +24,7 @@ function App() {
       <Route path="/gameover" element={<GameOver />} />
       <Route path="/guide" element={<Guide />} />
       <Route path="/visualizer" element={<Visualizer />} />
+      <Route path="/visualizer/stack" element={<StackVisualizer />} />
       <Route path="/visualizer/:algoId" element={<AlgoVisualizer />} />
     </Routes>
   );

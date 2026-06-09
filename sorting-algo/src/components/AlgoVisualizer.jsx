@@ -109,14 +109,152 @@ const codeSnippets = {
 }`,
   },
   quickSort: {
-    description: "",
-    cpp: ``,
-    js: ``,
+    description:
+      "Quick Sort works by selecting a pivot element (the last element by default) and partitioning the array so all elements smaller than the pivot go left and larger ones go right. The pivot is then in its final correct position. This process repeats recursively on the left and right portions until the entire array is sorted.",
+    cpp: `void partition(int arr[], int low, int high)
+{
+  int pivot = arr[high];
+  int i = low - 1;
+
+  for (int j = low; j < high; j++)
+  {
+    if (arr[j] <= pivot)
+    {
+      i++;
+      int temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+
+  int temp = arr[i + 1];
+  arr[i + 1] = arr[high];
+  arr[high] = temp;
+}
+
+void quickSort(int arr[], int low, int high)
+{
+  if (low < high)
+  {
+    int pivot = partition(arr, low, high);
+    quickSort(arr, low, pivot - 1);
+    quickSort(arr, pivot + 1, high);
+  }
+}`,
+    js: `function partition(arr, low, high)
+{
+  const pivot = arr[high];
+  let i = low - 1;
+
+  for (let j = low; j < high; j++)
+  {
+    if (arr[j] <= pivot)
+    {
+      i++;
+      let temp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = temp;
+    }
+  }
+
+  let temp = arr[i + 1];
+  arr[i + 1] = arr[high];
+  arr[high] = temp;
+}
+
+function quickSort(arr, low, high)
+{
+  if (low < high)
+  {
+    const pivot = partition(arr, low, high);
+    quickSort(arr, low, pivot - 1);
+    quickSort(arr, pivot + 1, high);
+  }
+}`,
   },
   heapSort: {
-    description: "",
-    cpp: ``,
-    js: ``,
+    description:
+      "Heap Sort works in two phases. First it builds a Max Heap from the array:  a structure where every parent node is greater than its children, placing the largest element at the root. Then it repeatedly swaps the root with the last unsorted element, marks it sorted, and rebuilds the heap. This continues until all elements are in their correct positions.",
+    cpp: `void heapify(int arr[], int n, int i)
+{
+  int largest = i;
+  int left = 2 * i + 1;
+  int right = 2 * i + 2;
+
+  if (left < n && arr[left] > arr[largest])
+  {
+    largest = left;
+  }
+
+  if (right < n && arr[right] > arr[largest])
+  {
+    largest = right;
+  }
+
+  if (largest != i)
+  {
+    int temp = arr[i];
+    arr[i] = arr[largest];
+    arr[largest] = temp;
+    heapify(arr, n, largest);
+  }
+}
+
+void heapSort(int arr[], int n)
+{
+  for (int i = n / 2 - 1; i >= 0; i--)
+  {
+    heapify(arr, n, i);
+  }
+
+  for (int i = n - 1; i > 0; i--)
+  {
+    int temp = arr[0];
+    arr[0] = arr[i];
+    arr[i] = temp;
+    heapify(arr, i, 0);
+  }
+}`,
+    js: `function heapify(arr, n, i)
+{
+  let largest = i;
+  const left = 2 * i + 1;
+  const right = 2 * i + 2;
+
+  if (left < n && arr[left] > arr[largest])
+  {
+    largest = left;
+  }
+
+  if (right < n && arr[right] > arr[largest])
+  {
+    largest = right;
+  }
+
+  if (largest !== i)
+  {
+    let temp = arr[i];
+    arr[i] = arr[largest];
+    arr[largest] = temp;
+    heapify(arr, n, largest);
+  }
+}
+
+function heapSort(arr, n)
+{
+  for (let i = Math.floor(n / 2) - 1; i >= 0; i--)
+  {
+    heapify(arr, n, i);
+  }
+
+  for (let i = n - 1; i > 0; i--)
+  {
+    let temp = arr[0];
+    arr[0] = arr[i];
+    arr[i] = temp;
+    heapify(arr, i, 0);
+  }
+}`,
   },
 };
 

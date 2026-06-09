@@ -46,6 +46,27 @@ const categories = [
       },
     ],
   },
+  {
+    label: "Linear Data Structures",
+    algorithms: [
+      {
+        id: "stack",
+        name: "Stack",
+        complexity: "O(1)",
+        difficulty: "Beginner",
+        description:
+          "A last-in first-out structure where elements are pushed and popped from the top.",
+      },
+      {
+        id: "queue",
+        name: "Queue",
+        complexity: "O(1)",
+        difficulty: "Beginner",
+        description:
+          "A first-in first-out structure where elements are enqueued at the back and dequeued from the front.",
+      },
+    ],
+  },
 ];
 
 function Visualizer() {
