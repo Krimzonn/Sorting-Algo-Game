@@ -7,6 +7,7 @@ import Guide from "./components/Guide";
 import Visualizer from "./components/Visualizer";
 import AlgoVisualizer from "./components/AlgoVisualizer";
 import StackVisualizer from "./components/StackVisualizer";
+import QueueVisualizer from "./components/QueueVisualizer";
 
 function App() {
   // useEffect(() => {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/guide" element={<Guide />} />
       <Route path="/visualizer" element={<Visualizer />} />
       <Route path="/visualizer/stack" element={<StackVisualizer />} />
+      <Route path="/visualizer/queue" element={<QueueVisualizer />} />
       <Route path="/visualizer/:algoId" element={<AlgoVisualizer />} />
     </Routes>
   );

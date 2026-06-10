@@ -116,7 +116,7 @@ function StackVisualizer() {
               About
             </p>
             <p className="text-zinc-400 text-sm leading-relaxed">
-              A stack follows the last in first out (LIFO) rule. The last
+              A stack follows the last in first out (LIFO) rule: The last
               element pushed is the first element out. Think of a stack as a
               pile of plates, the top plate is always picked out first.
             </p>
