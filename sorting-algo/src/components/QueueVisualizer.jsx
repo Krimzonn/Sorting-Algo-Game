@@ -145,6 +145,43 @@ function QueueVisualizer() {
                 className="w-5 h-5 invert opacity-60"
               ></img>
             </button>
+
+            <button
+              onClick={handlePeek}
+              className="border border-zinc-500 text-zinc-400 px-6 py-2 rounded-lg hover:border-white hover:text-white transition-all font-mono flex items-center gap-2"
+            >
+              Peek
+              <img
+                src="/visibility.png"
+                className="w-5 h-5 invert opacity-60"
+              ></img>
+            </button>
+          </div>
+          <div
+            className={`px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg font-mono text-sm text-center w-1/2 ${message.includes("Empty") ? "text-red-400" : message.includes("front") ? "text-yellow-500" : "text-green-400"}`}
+          >
+            {message}
+          </div>
+
+          <div className="flex items-center gap-8">
+            <div className="text-center">
+              <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                Size
+              </p>
+              <p className="text-2xl font-bold font-mono text-white">
+                {queue.length}
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs font-mono text-zinc-500 uppercase tracking-widest">
+                Status
+              </p>
+              <p
+                className={`text-2xl font-bold font-mono ${queue.length === 0 ? "text-red-400" : "text-green-400"}`}
+              >
+                {queue.length === 0 ? "Empty" : "Active"}
+              </p>
+            </div>
           </div>
         </div>
       </div>

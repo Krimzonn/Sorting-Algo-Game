@@ -65,6 +65,14 @@ const categories = [
         description:
           "A first-in first-out structure where elements are enqueued at the back and dequeued from the front.",
       },
+      {
+        id: "linkedList",
+        name: "Linked List",
+        complexity: "O(n)",
+        difficulty: "Intermediate",
+        description:
+          "A sequence of nodes where each node holds a value and a pointer to the next node in the chain.",
+      },
     ],
   },
 ];
