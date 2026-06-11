@@ -8,6 +8,7 @@ import Visualizer from "./components/Visualizer";
 import AlgoVisualizer from "./components/AlgoVisualizer";
 import StackVisualizer from "./components/StackVisualizer";
 import QueueVisualizer from "./components/QueueVisualizer";
+import LinkedListVisualizer from "./components/LinkedListVisualizer";
 
 function App() {
   // useEffect(() => {
@@ -28,6 +29,7 @@ function App() {
       <Route path="/visualizer/stack" element={<StackVisualizer />} />
       <Route path="/visualizer/queue" element={<QueueVisualizer />} />
       <Route path="/visualizer/:algoId" element={<AlgoVisualizer />} />
+      <Route path="/visualizer/linkedList" element={<LinkedListVisualizer />} />
     </Routes>
   );
 }

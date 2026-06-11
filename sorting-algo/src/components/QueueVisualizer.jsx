@@ -46,7 +46,7 @@ function QueueVisualizer() {
       <div className="flex items-center justify-between mb-10">
         <button
           onClick={() => navigate("/visualizer")}
-          className="border border-zinc-600 text-zinc-600 hover:border-white hover:text-white px-4 py-2 rounded-lg font-mono text-sm transition-al"
+          className="border border-zinc-600 text-zinc-600 hover:border-white hover:text-white px-4 py-2 rounded-lg font-mono text-sm transition-all"
         >
           Back
         </button>
@@ -66,7 +66,7 @@ function QueueVisualizer() {
        */}
 
         <div className="flex flex-row items-center justify-center gap-6">
-          <div className="border-2 border-dashed border-zinc-800 rounded-xl px-12 py-8 flex flex-row items-center gap-4 min-h-4">
+          <div className="border-2 border-dashed border-zinc-800 rounded-xl px-12 py-8 flex flex-row items-center gap-4 min-h-4 flex-wrap">
             <div className="flex flex-row items-center gap-4">
               {queue.length > 0 && (
                 <span className="text-xs font-mono text-zinc-500">
