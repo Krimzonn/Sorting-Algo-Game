@@ -1,10 +1,132 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+const codeSnippets = {
+  linkedList: {
+    description:
+      "A Linked List is made up of nodes, where each node stores a value and a pointer to the next node. Insertion at the front is O(1) since it only requires creating a new node and pointing it to the current head. Insertion at the back and deletion both require traversing the list, making them O(n).",
+    cpp: `struct Node 
+{
+  int data;
+  Node* next;
+};
+
+void insertFront(Node*& head, int value)
+{
+  Node* newNode = new Node();
+  newNode->data = value;
+  newNode->next = head;
+  head = newNode;
+}
+
+void insertBack(Node*& head, int value)
+{
+  Node* newNode = new Node();
+  newNode->data = value;
+  newNode->next = nullptr;
+
+  if (head == nullptr)
+  {
+    head = newNode;
+    return;
+  }
+
+  Node* temp = head;
+  while (temp->next != nullptr)
+  {
+    temp = temp->next;
+  }
+  temp->next = newNode;
+}
+
+void deleteValue(Node*& head, int value)
+{
+  Node* temp = head;
+  Node* prev = nullptr;
+
+  if (temp != nullptr && temp->data == value)
+  {
+    head = temp->next;
+    delete temp;
+    return;
+  }
+
+  while (temp != nullptr && temp->data != value)
+  {
+    prev = temp;
+    temp = temp->next;
+  }
+
+  if (temp == nullptr) return;
+
+  prev->next = temp->next;
+  delete temp;
+}`,
+    js: `class Node 
+{
+  constructor(value)
+  {
+    this.value = value;
+    this.next = null;
+  }
+}
+
+function insertFront(head, value)
+{
+  const newNode = new Node(value);
+  newNode.next = head;
+  return newNode;
+}
+
+function insertBack(head, value)
+{
+  const newNode = new Node(value);
+
+  if (head === null)
+  {
+    return newNode;
+  }
+
+  let temp = head;
+  while (temp.next !== null)
+  {
+    temp = temp.next;
+  }
+  temp.next = newNode;
+  return head;
+}
+
+function deleteValue(head, value)
+{
+  if (head === null) return null;
+
+  if (head.value === value)
+  {
+    return head.next;
+  }
+
+  let temp = head;
+  while (temp.next !== null && temp.next.value !== value)
+  {
+    temp = temp.next;
+  }
+
+  if (temp.next !== null)
+  {
+    temp.next = temp.next.next;
+  }
+
+  return head;
+}`,
+  },
+};
+
 function LinkedListVisualizer() {
   const navigate = useNavigate();
   const [list, setList] = useState([]);
   const [inputVal, setInputVal] = useState("");
+  const [showCode, setShowCode] = useState(false);
+  const [activeTab, setActiveTab] = useState("cpp");
   const [message, setMessage] = useState("Linked list is ready!");
 
   const handleInsertFront = () => {
@@ -43,7 +165,50 @@ function LinkedListVisualizer() {
   const handleSearch = () => {};
 
   return (
-    <div className="min-h-screen bg-black text-white p-12">
+    <div className="min-h-screen bg-black text-white p-12 pt-5">
+      {showCode && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-2/5 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-serif">
+                Linked List - Code
+              </h2>
+              <button
+                className="text-zinc-400 hover:text-white font-mono"
+                onClick={() => setShowCode(false)}
+              >
+                Close ✕
+              </button>
+            </div>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              {codeSnippets.linkedList.description}
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                className={`flex-1 py-2 rounded-lg font-mono font-bold flex items-center justify-center gap-2 ${activeTab === "cpp" ? "bg-purple-500 text-white" : "bg-zinc-800 text-zinc-500"}`}
+                onClick={() => setActiveTab("cpp")}
+              >
+                <img src="/c-.png" alt="C++ icon" className="w-5 h-5"></img>
+                C++
+              </button>
+              <button
+                className={`flex-1 py-2 rounded-lg font-mono font-bold text-black flex items-center justify-center gap-2 ${activeTab === "js" ? "bg-yellow-500 text-black" : "bg-zinc-800 text-zinc-500"}`}
+                onClick={() => setActiveTab("js")}
+              >
+                <img src="/js.png" alt="JS icon" className="w-5 h-5"></img>
+                JavaScript
+              </button>
+            </div>
+
+            <pre className="bg-zinc-950 text-green-400 text-sm font-mono whitespace-pre overflow-x-auto p-4 rounded-xl max-h-48 overflow-y-auto">
+              {activeTab === "cpp"
+                ? codeSnippets.linkedList?.cpp
+                : codeSnippets.linkedList?.js}
+            </pre>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between mb-10">
         <button
           onClick={() => navigate("/visualizer")}
@@ -51,8 +216,14 @@ function LinkedListVisualizer() {
         >
           Back
         </button>
+
         <h2 className="text-4xl font-bold font-serif">Linked List</h2>
-        <div className="w-24"></div>
+        <button
+          onClick={() => setShowCode(true)}
+          className="bg-white text-black px-5 py-4 rounded-md text-lg font-mono hover:bg-zinc-500 hover:text-white hover:opacity-80 transition-all duration-300 cursor-pointer"
+        >
+          Show Code
+        </button>
       </div>
 
       {/* 

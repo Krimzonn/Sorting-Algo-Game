@@ -1,10 +1,58 @@
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+const codeSnippets = {
+  stack: {
+    description:
+      "A Stack follows Last In First Out (LIFO): elements are added and removed from the side which is called the top. Using an array, both push and pop are O(1) operations since they only affect the last element.",
+    cpp: `#include <vector>
+using namespace std;
+
+vector<int> stack;
+
+void push(int value)
+{
+  stack.push_back(value);
+}
+
+int pop()
+{
+  int top = stack.back();
+  stack.pop_back();
+  return top;
+}
+
+int peek()
+{
+  return stack.back();
+}`,
+    js: `let stack = [];
+
+function push(value)
+{
+  stack.push(value);
+}
+
+function pop()
+{
+  if (stack.length === 0) return null;
+  return stack.pop();
+}
+
+function peek()
+{
+  if (stack.length === 0) return null;
+  return stack[stack.length - 1];
+}`,
+  },
+};
+
 function StackVisualizer() {
   const navigate = useNavigate();
   const [stack, setStack] = useState([]);
   const [inputVal, setInputVal] = useState("");
+  const [showCode, setShowCode] = useState(false);
+  const [activeTab, setActiveTab] = useState("cpp");
   const [message, setMessage] = useState("Stack is ready");
 
   const handlePush = () => {
@@ -36,7 +84,48 @@ function StackVisualizer() {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white p-12">
+    <div className="min-h-screen bg-black text-white p-12 pt-5">
+      {showCode && (
+        <div className="fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+          <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-2/5 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
+            <div className="flex items-center justify-between">
+              <h2 className="text-xl font-bold font-serif">Stack - Code</h2>
+              <button
+                className="text-zinc-400 hover:text-white font-mono"
+                onClick={() => setShowCode(false)}
+              >
+                Close ✕
+              </button>
+            </div>
+            <p className="text-zinc-400 text-sm leading-relaxed">
+              {codeSnippets.stack.description}
+            </p>
+
+            <div className="flex gap-3">
+              <button
+                className={`flex-1 py-2 rounded-lg font-mono font-bold flex items-center justify-center gap-2 ${activeTab === "cpp" ? "bg-purple-500 text-white" : "bg-zinc-800 text-zinc-500"}`}
+                onClick={() => setActiveTab("cpp")}
+              >
+                <img src="/c-.png" alt="C++ icon" className="w-5 h-5"></img>
+                C++
+              </button>
+              <button
+                className={`flex-1 py-2 rounded-lg font-mono font-bold text-black flex items-center justify-center gap-2 ${activeTab === "js" ? "bg-yellow-500 text-black" : "bg-zinc-800 text-zinc-500"}`}
+                onClick={() => setActiveTab("js")}
+              >
+                <img src="/js.png" alt="JS icon" className="w-5 h-5"></img>
+                JavaScript
+              </button>
+            </div>
+
+            <pre className="bg-zinc-950 text-green-400 text-sm font-mono whitespace-pre overflow-x-auto p-4 rounded-xl max-h-48 overflow-y-auto">
+              {activeTab === "cpp"
+                ? codeSnippets.stack?.cpp
+                : codeSnippets.stack?.js}
+            </pre>
+          </div>
+        </div>
+      )}
       <div className="flex items-center justify-between mb-10">
         <button
           onClick={() => navigate("/visualizer")}
@@ -45,7 +134,12 @@ function StackVisualizer() {
           Back
         </button>
         <h1 className="text-4xl font-bold font-serif">Stack</h1>
-        <div className="w-24"></div>
+        <button
+          onClick={() => setShowCode(true)}
+          className="bg-white text-black px-5 py-4 rounded-md text-lg font-mono hover:bg-zinc-500 hover:text-white hover:opacity-80 transition-all duration-300 cursor-pointer"
+        >
+          Show Code
+        </button>
       </div>
 
       <div className="grid grid-cols-2 gap-10 mt-10 divide-x divide-zinc-800">

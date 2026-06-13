@@ -451,8 +451,8 @@ function AlgoVisualizer() {
       </div>
 
       {/*
-       Below is the Code for the Bars
-       ---------------------------------------
+       //*Below is the Code for the Bars
+       //*---------------------------------------
      */}
       <div
         className="flex items-end gap-2 h-64 mt-10"
@@ -481,8 +481,8 @@ function AlgoVisualizer() {
         })}
       </div>
       {/*
-       Above is the Code for the Bars
-       ---------------------------------------
+       //*Above is the Code for the Bars
+       //*---------------------------------------
      */}
 
       <div className="flex items-center gap-6 mt-4">
@@ -501,8 +501,8 @@ function AlgoVisualizer() {
       </div>
 
       {/*
-       Below is the Code for the Narration Box
-       ---------------------------------------
+       //*Below is the Code for the Narration Box
+       //*---------------------------------------
      */}
       <div
         className={`mt-6 px-4 py-3 bg-zinc-900 border border-zinc-700 rounded-lg font-mono text-sm ${setColor}`}
@@ -510,8 +510,8 @@ function AlgoVisualizer() {
         {narration(snap)}
       </div>
       {/*
-       Above is the Code for the Narration Box
-       ---------------------------------------
+       //*Above is the Code for the Narration Box
+       //*---------------------------------------
      */}
 
       <div className="flex items-center gap-4 mt-10">
