@@ -9,6 +9,7 @@ import StackVisualizer from "./components/StackVisualizer";
 import QueueVisualizer from "./components/QueueVisualizer";
 import LinkedListVisualizer from "./components/LinkedListVisualizer";
 import BinarySearchVisualizer from "./components/BinarySearchVisualizer";
+import LinearSearchVisualizer from "./components/LinearSearchVisualizer";
 
 function App() {
   // useEffect(() => {
@@ -27,12 +28,16 @@ function App() {
       <Route path="/visualizer" element={<Visualizer />} />
       <Route path="/visualizer/stack" element={<StackVisualizer />} />
       <Route path="/visualizer/queue" element={<QueueVisualizer />} />
-      <Route path="/visualizer/:algoId" element={<AlgoVisualizer />} />
       <Route
         path="/visualizer/binarySearch"
         element={<BinarySearchVisualizer />}
       />
+      <Route
+        path="/visualizer/linearSearch"
+        element={<LinearSearchVisualizer />}
+      />
       <Route path="/visualizer/linkedList" element={<LinkedListVisualizer />} />
+      <Route path="/visualizer/:algoId" element={<AlgoVisualizer />} />
     </Routes>
   );
 }

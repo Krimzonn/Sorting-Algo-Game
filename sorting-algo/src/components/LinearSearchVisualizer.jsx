@@ -1,47 +1,40 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import binarySearchVisualizerGen from "../game-logic/binarySearchVisualizerGen";
 import randArrGen from "../game-logic/arrayGenerator";
+import linearSearchVisualizerGen from "../game-logic/linearSearchVisualizerGen";
 
 const codeSnippets = {
-  binarySearch: {
+  linearSearch: {
     description:
-      "inary search works on a sorted array by repeatedly halving the search space. It starts by checking the middle element: if it matches the target, the search is done. If the target is smaller, it discards the right half; if larger, it discards the left half. This continues until the target is found or the search space is empty.",
+      "Linear search scans the array from left to right, comparing each element to the target one by one. If a match is found, it returns the index. If the entire array is traversed without a match, it concludes the target isn't present. It is useful for small and unsorted arrays.",
     cpp: `#include<iostream>
 using namespace std;
 
-int binarySearch(int arr[], int n, int target) 
-{
-    int low = 0, high = n - 1;
-
-    while (low <= high) 
+int linearSearch(int arr[], int n, int target) 
+{    
+    for (int i = 0; i < n; i++)        
     {
-        int mid = low + (high - low) / 2;
-        if (arr[mid] == target) return mid;
-        else if (arr[mid] < target) low = mid + 1;
-        else high = mid - 1;
+        if (arr[i] == target) 
+        {
+            return i;    
+        }
     }
-
-    return -1;
+        return -1;
 }`,
-    js: `function binarySearch(arr, target) 
-{
-    let low = 0, high = arr.length - 1;
-
-    while (low <= high) 
-    {
-        let mid = Math.floor((low + high) / 2);
-        if (arr[mid] === target) return mid;
-        else if (arr[mid] < target) low = mid + 1;
-        else high = mid - 1;
-    }
-
-    return -1;
+    js: `function linearSearch(arr, target) 
+{    for (let i = 0; i < arr.length; i++) 
+     {
+        if (arr[i] === target) 
+        {
+            return i;    
+        }
+     }
+        return -1;
 }`,
   },
 };
 
-function BinarySearchVisualizer() {
+function LinearSearchVisualizer() {
   const navigate = useNavigate();
   const [steps, setSteps] = useState([]);
   const [currentStep, setCurrentStep] = useState(0);
@@ -59,24 +52,20 @@ function BinarySearchVisualizer() {
     }
 
     const arr = randArrGen(8);
-    const sortedArr = [...arr].sort((a, b) => a - b);
-    setArray(sortedArr);
-    setSteps(binarySearchVisualizerGen(sortedArr, Number(targetInput)));
+    setArray(arr);
+    setSteps(linearSearchVisualizerGen(arr, Number(targetInput)));
     setCurrentStep(0);
     setSearchStarted(true);
   };
 
   const narration = (snap) => {
     if (snap.found) {
-      return `Found ${snap.target} at index ${snap.mid}`;
+      return `Found ${snap.target} at index ${snap.current}`;
     }
-    if (snap.mid === -1) {
+    if (snap.current === -1) {
       return `${snap.target} was not found in the array`;
     }
-    if (snap.array[snap.mid] < snap.target) {
-      return `${snap.array[snap.mid]} is less than ${snap.target} - searching right half`;
-    }
-    return `${snap.array[snap.mid]} is greater than ${snap.target} - searching left half`;
+    return `Checking index ${snap.current}: ${snap.array[snap.current]} ≠ ${snap.target}, moving right...`;
   };
 
   const handleStepForward = () => {
@@ -116,13 +105,13 @@ function BinarySearchVisualizer() {
     if (!snap) {
       return;
     }
-    if (snap.found && i === snap.mid) {
+    if (snap.found && i === snap.current) {
       return "bg-green-400 text-black";
     }
-    if (i === snap.mid) {
+    if (i === snap.current) {
       return "bg-yellow-400 text-black";
     }
-    if (i < snap.low || i > snap.high) {
+    if (snap.current !== -1 && i < snap.current) {
       return "bg-zinc-800 text-zinc-600";
     }
 
@@ -136,7 +125,7 @@ function BinarySearchVisualizer() {
           <div className="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-2/5 flex flex-col gap-6 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between">
               <h2 className="text-xl font-bold font-serif">
-                Binary Search - Code
+                Linear Search - Code
               </h2>
               <button
                 className="text-zinc-400 hover:text-white font-mono"
@@ -146,7 +135,7 @@ function BinarySearchVisualizer() {
               </button>
             </div>
             <p className="text-zinc-400 text-sm leading-relaxed">
-              {codeSnippets.binarySearch.description}
+              {codeSnippets.linearSearch.description}
             </p>
 
             <div className="flex gap-3">
@@ -168,8 +157,8 @@ function BinarySearchVisualizer() {
 
             <pre className="bg-zinc-950 text-green-400 text-sm font-mono whitespace-pre overflow-x-auto p-4 rounded-xl max-h-48 overflow-y-auto">
               {activeTab === "cpp"
-                ? codeSnippets.binarySearch?.cpp
-                : codeSnippets.binarySearch?.js}
+                ? codeSnippets.linearSearch?.cpp
+                : codeSnippets.linearSearch?.js}
             </pre>
           </div>
         </div>
@@ -181,7 +170,7 @@ function BinarySearchVisualizer() {
         >
           Back
         </button>
-        <h2 className="text-4xl font-bold font-serif">Binary Search</h2>
+        <h2 className="text-4xl font-bold font-serif">Linear Search</h2>
         <button
           onClick={() => setShowCode(true)}
           className="bg-white text-black px-5 py-4 rounded-md text-lg font-mono hover:bg-zinc-500 hover:text-white hover:opacity-80 transition-all duration-300 cursor-pointer"
@@ -218,13 +207,7 @@ function BinarySearchVisualizer() {
             {snap.array.map((val, i) => (
               <div key={i} className="flex flex-col items-center gap-2">
                 <div className="h-6 text-xs font-mono text-zinc-500">
-                  {i === snap.low &&
-                    i === snap.high &&
-                    i === snap.mid &&
-                    "L/M/R"}
-                  {i === snap.low && i !== snap.mid && "L"}
-                  {i === snap.mid && "MID"}
-                  {i === snap.high && i !== snap.mid && "H"}
+                  {i === snap.current && "CUR"}
                 </div>
                 <div
                   className={`w-14 h-14 flex items-center justify-center font-mono rounded-lg font-bold ${getBoxColor(i)}`}
@@ -268,4 +251,4 @@ function BinarySearchVisualizer() {
   );
 }
 
-export default BinarySearchVisualizer;
+export default LinearSearchVisualizer;

@@ -86,6 +86,14 @@ const categories = [
         description:
           "Repeatedly halves a sorted array to locate a target value.",
       },
+      {
+        id: "linearSearch",
+        name: "Linear Search",
+        complexity: "O(n)",
+        difficulty: "Beginner",
+        description:
+          "Scans each element one by one until the target is found or the array ends.",
+      },
     ],
   },
 ];
@@ -93,6 +101,15 @@ const categories = [
 function Visualizer() {
   const navigate = useNavigate();
   const [searchQuery, setSearchQuery] = useState("");
+
+  const filteredCategories = categories
+    .map((category) => ({
+      ...category,
+      algorithms: category.algorithms.filter((algo) =>
+        algo.name.toLowerCase().includes(searchQuery.toLowerCase()),
+      ),
+    }))
+    .filter((category) => category.algorithms.length > 0);
 
   return (
     <div className="min-h-screen bg-black text-white playfair p-12">
@@ -113,7 +130,7 @@ function Visualizer() {
 
       <hr className="w-full bg-zinc-600"></hr>
 
-      {categories.map((category) => (
+      {filteredCategories.map((category) => (
         <div key={category.label} className="mb-12">
           <div className="flex items-center gap-4 mt-8 mb-6">
             <h2 className="text-xl font-mono text-zinc-500 uppercase tracking-widest font-bold">
