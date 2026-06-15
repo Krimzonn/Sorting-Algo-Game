@@ -9,7 +9,6 @@ function MainMenu() {
   const [screen, setScreen] = useState("main");
   const [selectAlgorithm, setSelectAlgorithm] = useState(null);
   const [selectDifficulty, setSelectDifficulty] = useState(null);
-  const [gameMode, setGameMode] = useState("ai");
   const [showTimeModal, setShowTimeModal] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -61,13 +60,6 @@ function MainMenu() {
             onClick={() => navigate("/visualizer")}
           >
             VISUALIZER
-          </button>
-          <button
-            className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
-            type="button"
-            onClick={() => navigate("/leaderboard")}
-          >
-            LEADERBOARD
           </button>
           <button
             className="bg-fuchsia-500 hover:bg-purple-600 text-white text-xl font-bold px-8 py-3 rounded-xl w-55"
@@ -266,20 +258,6 @@ function MainMenu() {
             </button>
           </div>
         </div>
-        <div className="flex flex-row gap-8 mt-10">
-          <button
-            className="bg-cyan-400 text-black font-bold px-8 py-3 rounded-xl"
-            onClick={() => setGameMode("ai")}
-          >
-            AI MODE
-          </button>
-          <button
-            className="bg-orange-400 text-black font-bold px-8 py-3 rounded-xl"
-            onClick={() => setGameMode("pvp")}
-          >
-            PvP MODE
-          </button>
-        </div>
         <button
           className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
           type="button"
@@ -301,7 +279,7 @@ function MainMenu() {
                       state: {
                         algorithm: selectAlgorithm,
                         difficulty: selectDifficulty,
-                        mode: gameMode,
+                        mode: "ai",
                         time: 40,
                       },
                     })
@@ -322,7 +300,7 @@ function MainMenu() {
                       state: {
                         algorithm: selectAlgorithm,
                         difficulty: selectDifficulty,
-                        mode: gameMode,
+                        mode: "ai",
                         time: 75,
                       },
                     })
@@ -343,7 +321,7 @@ function MainMenu() {
                       state: {
                         algorithm: selectAlgorithm,
                         difficulty: selectDifficulty,
-                        mode: gameMode,
+                        mode: "ai",
                         time: 100,
                       },
                     })
@@ -364,7 +342,7 @@ function MainMenu() {
                       state: {
                         algorithm: selectAlgorithm,
                         difficulty: selectDifficulty,
-                        mode: gameMode,
+                        mode: "ai",
                         time: 130,
                       },
                     })
@@ -385,7 +363,7 @@ function MainMenu() {
                       state: {
                         algorithm: selectAlgorithm,
                         difficulty: selectDifficulty,
-                        mode: gameMode,
+                        mode: "ai",
                         time: 160,
                       },
                     })

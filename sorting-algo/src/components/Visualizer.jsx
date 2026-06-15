@@ -75,10 +75,24 @@ const categories = [
       },
     ],
   },
+  {
+    label: "Searching Algorithms",
+    algorithms: [
+      {
+        id: "binarySearch",
+        name: "Binary Search",
+        complexity: "O(log n)",
+        difficulty: "Beginner",
+        description:
+          "Repeatedly halves a sorted array to locate a target value.",
+      },
+    ],
+  },
 ];
 
 function Visualizer() {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
 
   return (
     <div className="min-h-screen bg-black text-white playfair p-12">
@@ -87,13 +101,14 @@ function Visualizer() {
         <p className="text-zinc-400 mt-2 text-lg">
           Watch the algorithms work behind the scenes
         </p>
-        <div className="flex gap-6 mt-4 text-xs font-mono text-zinc-500 uppercase tracking-widest">
-          <span>5 Algorithms</span>
-          <span>·</span>
-          <span>3 Difficulty Levels</span>
-          <span>·</span>
-          <span>Step-by-step Playback</span>
-        </div>
+
+        <input
+          type="text"
+          placeholder="Search algorithms..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="bg-zinc-900  border border-zinc-600 text-white font-mono  px-4 py-2 rounded-lg w-full mt-6 focus:outline-none focus:border-white"
+        />
       </div>
 
       <hr className="w-full bg-zinc-600"></hr>
