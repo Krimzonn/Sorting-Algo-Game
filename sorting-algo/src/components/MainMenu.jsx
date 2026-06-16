@@ -389,6 +389,58 @@ function MainMenu() {
         )}
       </div>
     );
+  } else if (screen === "settings") {
+    content = (
+      <div className="min-h-screen flex flex-col items-center justify-center p-18">
+        <ParticleBackground />
+
+        <h1 className="text-4xl font-bold text-fuchsia-500 mb-10">Settings</h1>
+
+        <div className="flex flex-row gap-6">
+          <div className="bg-zinc-800 border border-fuchsia-500 rounded-xl p-8 w-72 flex flex-col gap-4">
+            <h2 className="text-xl font-bold text-fuchsia-400">About</h2>
+
+            <div>
+              <p className="text-sm font-bold text-white">Sorting Algo</p>
+              <p className="text-xs text-zinc-400 mt-1">
+                An interactive platform for learning sorting algorithms,
+                searching algorithms, and data structures through hands-on
+                gameplay and step-by-step visualization.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm font-bold text-white">Why I built this?</p>
+              <p className="text-xs text-zinc-400 mt-1">
+                Long story short, I was unsatisfied with a game I built for my
+                assignment in 2nd semester so I decided to make a more fun and
+                improved version of the game in React. Since DSA was already
+                coming up, I decided to implement visualization as well.
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm font-bold text-white">Tech Stack</p>
+              <p className="text-xs text-zinc-400 mt-1">
+                React · Tailwind CSS · React Router · Vercel
+              </p>
+            </div>
+
+            <div>
+              <p className="text-sm font-bold text-white">Created by</p>
+              <p className="text-xs text-zinc-400 mt-1">Abdul Ahad</p>
+            </div>
+          </div>
+        </div>
+
+        <button
+          className="border-2 border-fuchsia-500 text-fuchsia-500 hover:bg-fuchsia-500 hover:text-white font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
+          onClick={() => transitionTo("main")}
+        >
+          BACK
+        </button>
+      </div>
+    );
   }
 
   return (
