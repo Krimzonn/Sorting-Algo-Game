@@ -173,6 +173,13 @@ function Visualizer() {
           </div>
         </div>
       ))}
+
+      <button
+        className="border w-24 border-white font-mono text-white hover:bg-white hover:text-black font-bold px-6 py-4 rounded-xl mt-12 transition-colors duration-300"
+        onClick={() => navigate("/")}
+      >
+        BACK
+      </button>
     </div>
   );
 }
